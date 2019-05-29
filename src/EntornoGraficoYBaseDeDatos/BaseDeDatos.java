@@ -20,7 +20,7 @@ public class BaseDeDatos {
 
      public static class Inserts{
      public static void insert(String NombreUser, String NombrePartida,String Resultado,int Farmeo,int Kills,int Muertes,int Asistencias,int Vision,String Rango,int Elo) {
-        String sql = "INSERT INTO "+NombreUser+"(NombrePartida,NombreUser,Resultado,Farmeo,Kills,Muertes,Asistencias,Rango,Vision,Elo) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO "+NombreUser+"(NombrePartida,Resultado,Farmeo,Kills,Muertes,Asistencias,Vision,Rango,Elo) VALUES(?,?,?,?,?,?,?,?,?)";
         Connection conne = null;
         try {
             conne = DriverManager.getConnection("jdbc:sqlite:base.db");
@@ -30,23 +30,24 @@ public class BaseDeDatos {
         try (Connection conn = conne;
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, NombrePartida);
-            pstmt.setString(2, NombreUser);
-            pstmt.setString(3, Resultado);
-            pstmt.setInt(4, Farmeo);
-            pstmt.setInt(5, Kills);
-            pstmt.setInt(6, Muertes);
-            pstmt.setInt(7, Asistencias);
-            pstmt.setInt(8, Vision);
-            pstmt.setString(9, Rango);
-            pstmt.setInt(10, Elo);
+            pstmt.setString(2, Resultado);
+            pstmt.setInt(3, Farmeo);
+            pstmt.setInt(4, Kills);
+            pstmt.setInt(5, Muertes);
+            pstmt.setInt(6, Asistencias);
+            pstmt.setInt(7, Vision);
+            pstmt.setString(8, Rango);
+            pstmt.setInt(9, Elo);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         }
      
-     public static void insert2(String NombreUser,String NombreBuild,String NombreObjeto, String NombreObjeto2,String NombreObjeto3,String NombreObjeto4,String NombreObjeto5,String NombreObjeto6) {
-        String sql = "INSERT INTO "+NombreUser+"Build (NombreBuild,NombreObjeto,NombreObjeto2,NombreObjeto3,NombreObjeto4,NombreObjeto5,NombreObjeto6) VALUES(?,?,?,?,?,?,?,?,?,?)";
+     public static void insert2(String NombreBuild,String NombreObjeto, String NombreObjeto2,String NombreObjeto3,String NombreObjeto4,String NombreObjeto5,String NombreObjeto6) {
+         Panel obx=new Panel();
+         String NombreUser=obx.usuario;
+        String sql = "INSERT INTO "+NombreUser+"Build (NombreBuild,NombreObjeto,NombreObjeto2,NombreObjeto3,NombreObjeto4,NombreObjeto5,NombreObjeto6) VALUES(?,?,?,?,?,?,?)";
         Connection conne = null;
         try {
             conne = DriverManager.getConnection("jdbc:sqlite:base.db");
@@ -94,12 +95,12 @@ public class BaseDeDatos {
         }
     }
     
-    public static void createNewTable2() {
+    public static void createNewTable2(String NombreUser) {
         // SQLite connection string
         String url = "jdbc:sqlite:base.db";
         
         // SQL statement for creating a new table
-        String sql1 = "CREATE TABLE IF NOT EXISTS Build (\n"
+        String sql1 = "CREATE TABLE IF NOT EXISTS "+NombreUser+"Build (\n"
                 + "	NombreBuild text PRIMARY KEY,\n"
                 + "	NombreObjeto text,\n"
                 + "	NombreObjeto2 text,\n"

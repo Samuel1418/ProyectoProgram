@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>
@@ -182,6 +182,9 @@
                 <Property name="text" type="java.lang.String" value="Revisar partidas guardadas"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RevisarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="Guardar">
               <Properties>
@@ -197,12 +200,18 @@
                 <Property name="text" type="java.lang.String" value="Borrar una build"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BorrarBuildActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="BorrarPartida">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Borrar una partida concreta"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BorrarPartidaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="Modificar">
               <Properties>
@@ -236,12 +245,18 @@
                 <Property name="text" type="java.lang.String" value="Crear una build"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CrearBuildActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="ConsultarBuild">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Revisar build"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConsultarBuildActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <AuxValues>

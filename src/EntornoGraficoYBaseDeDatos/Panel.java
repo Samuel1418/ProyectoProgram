@@ -5,7 +5,13 @@
  */
 package EntornoGraficoYBaseDeDatos;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -73,6 +79,11 @@ public class Panel extends javax.swing.JFrame {
 
         Revisar.setText("Revisar partidas guardadas");
         Revisar.setEnabled(false);
+        Revisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RevisarActionPerformed(evt);
+            }
+        });
 
         Guardar.setText("Guardar una partida");
         Guardar.setEnabled(false);
@@ -84,9 +95,19 @@ public class Panel extends javax.swing.JFrame {
 
         BorrarBuild.setText("Borrar una build");
         BorrarBuild.setEnabled(false);
+        BorrarBuild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BorrarBuildActionPerformed(evt);
+            }
+        });
 
         BorrarPartida.setText("Borrar una partida concreta");
         BorrarPartida.setEnabled(false);
+        BorrarPartida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BorrarPartidaActionPerformed(evt);
+            }
+        });
 
         Modificar.setText("Modificar los datos de una partida");
         Modificar.setEnabled(false);
@@ -105,9 +126,19 @@ public class Panel extends javax.swing.JFrame {
 
         CrearBuild.setText("Crear una build");
         CrearBuild.setEnabled(false);
+        CrearBuild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearBuildActionPerformed(evt);
+            }
+        });
 
         ConsultarBuild.setText("Revisar build");
         ConsultarBuild.setEnabled(false);
+        ConsultarBuild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultarBuildActionPerformed(evt);
+            }
+        });
 
         TablaPartida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -273,6 +304,90 @@ public class Panel extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_GuardarActionPerformed
+
+    private void BorrarBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarBuildActionPerformed
+     String opcion=JOptionPane.showInputDialog(null, "Indique el nombre de la build que desea borrar");
+        try {
+   // ESTABLECER LA CONEXIÓN
+   String sql="DELETE FROM Build where NombreBuild='"+opcion+"Build';";
+   Connection conexion;
+   conexion = DriverManager.getConnection("jdbc:sqlite:base.db");
+   // CREAR ENUNCIADO
+   Statement enunciado;
+   enunciado = conexion.createStatement();
+   // BORRAR LA FILA
+   enunciado.executeUpdate(sql);
+ 
+   JOptionPane.showMessageDialog(null, "Fila borrada con Exito");
+    } catch (SQLException e) {
+   System.out.println(e.getMessage());
+    }
+        
+        
+    }//GEN-LAST:event_BorrarBuildActionPerformed
+
+    private void BorrarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarPartidaActionPerformed
+        String opcion=JOptionPane.showInputDialog(null, "Indique el nombre de la partida que desea borrar");
+        try {
+   // ESTABLECER LA CONEXIÓN
+   String sql="DELETE FROM Partida where NombrePartida='"+opcion+"';";
+   Connection conexion;
+   conexion = DriverManager.getConnection("jdbc:sqlite:base.db");
+   // CREAR ENUNCIADO
+   Statement enunciado;
+   enunciado = conexion.createStatement();
+   // BORRAR LA FILA
+   enunciado.executeUpdate(sql);
+ 
+   JOptionPane.showMessageDialog(null, "Fila borrada con Exito");
+    } catch (SQLException e) {
+   System.out.println(e.getMessage());
+    }
+        
+    }//GEN-LAST:event_BorrarPartidaActionPerformed
+
+    private void RevisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevisarActionPerformed
+   
+        CargarTablas obx = new CargarTablas();
+
+        ArrayList<Object[]> listaPartida = new ArrayList<Object[]>();
+        String user=JOptionPane.showInputDialog(null, "Indique el nombre del usuario del que desea ver la tabla");
+        listaPartida = obx.selectAll(user);
+
+        
+        DefaultTableModel modelo = (DefaultTableModel) TablaPartida.getModel();
+        for (Object[] ele : listaPartida) {
+            modelo.addRow(ele);
+        }  
+
+        TablaPartida.setModel(modelo);
+
+
+
+    }//GEN-LAST:event_RevisarActionPerformed
+
+    private void ConsultarBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarBuildActionPerformed
+
+        CargarTablas obxx = new CargarTablas();
+
+        ArrayList<Object[]> listaPartida = new ArrayList<Object[]>();
+        String user=JOptionPane.showInputDialog(null, "Indique el nombre del usuario del que desea ver la Build");
+        listaPartida = obxx.selectAll2(user);
+
+        
+        DefaultTableModel modelo = (DefaultTableModel) TablaBuild.getModel();
+        for (Object[] ele : listaPartida) {
+            modelo.addRow(ele);
+        }  
+
+        TablaBuild.setModel(modelo);
+                
+    }//GEN-LAST:event_ConsultarBuildActionPerformed
+
+    private void CrearBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearBuildActionPerformed
+        CrearBuild obx=new CrearBuild();
+        obx.setVisible(true);
+    }//GEN-LAST:event_CrearBuildActionPerformed
 
     /**
      * @param args the command line arguments
